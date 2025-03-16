@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-# Smart-space-api
-=======
-# smart-space-backend
+# Smart-Space-Api
 
 ### Setup
 
