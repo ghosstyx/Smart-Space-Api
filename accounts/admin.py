@@ -36,6 +36,3 @@ class NaturalPersonAdmin(admin.ModelAdmin):
     ordering = ('birthday',)
     search_fields = ('full_name', 'pnf')
 
-@admin.register(MarkTrack)
-class MarkTrackAdmin(admin.ModelAdmin):
-    list_display = ('arrival', 'person',)
