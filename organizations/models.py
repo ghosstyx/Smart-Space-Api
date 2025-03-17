@@ -48,16 +48,6 @@ class JobTitle(models.Model):
 
 
 
-class BioTrack(models.Model):
-    ip_address = models.CharField(max_length=255, verbose_name="IP Address")
-    port = models.IntegerField(verbose_name="Port")
-    title = models.CharField(max_length=255, verbose_name="Title")
-    password = models.CharField(max_length=255, verbose_name="Password")
-    class Meta:
-        verbose_name = "Био Трек"
-        verbose_name_plural = "Био Треки"
-
-
 class WorkHours(models.Model):
     arrive = models.TimeField(auto_now=False, auto_now_add=False, null=True, verbose_name="Время прихода")
     leave = models.TimeField(auto_now=False, auto_now_add=False, null=True, verbose_name="Время Ухода")

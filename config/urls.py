@@ -11,6 +11,7 @@ urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
     path('auth/', include('accounts.urls', namespace='accounts')),
     path('org/', include('organizations.urls', namespace='organizations')),
+    path('visit/', include('visits.urls', namespace='visits')),
     # path('user/', include('user_profiles.urls', namespace='user_profiles')),
     # path('organizations/', include('organizations.urls', namespace='organizations')),
 ]

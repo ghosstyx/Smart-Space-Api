@@ -17,11 +17,6 @@ class DepartmentAdmin(admin.ModelAdmin):
 class JobTitleAdmin(admin.ModelAdmin):
     list_display = ("jobTitle", )
 
-
-@admin.register(BioTrack)
-class BioTrackAdmin(admin.ModelAdmin):
-    list_display = ("ip_address", "port", "title", "password")
-
 @admin.register(WorkHours)
 class WorkHoursAdmin(admin.ModelAdmin):
     list_display = ("arrive", "leave",)

@@ -6,3 +6,7 @@ from .models import *
 @admin.register(MarkTrack)
 class MarkTrackAdmin(admin.ModelAdmin):
     list_display = ('arrival', 'person',)
+
+@admin.register(BioTrack)
+class BioTrackAdmin(admin.ModelAdmin):
+    list_display = ("ip_address", "port", "title", "password")

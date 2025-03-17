@@ -7,3 +7,13 @@ class MarkTrack(models.Model):
     person = models.ForeignKey(NaturalPerson, blank=True, null=True, on_delete=models.CASCADE)
     def __str__(self):
         return f"{self.arrival}  : Время на работе"
+
+class BioTrack(models.Model):
+    ip_address = models.CharField(max_length=255, verbose_name="IP Address")
+    port = models.IntegerField(verbose_name="Port")
+    title = models.CharField(max_length=255, verbose_name="Title")
+    password = models.CharField(max_length=255, verbose_name="Password")
+    class Meta:
+        verbose_name = "Био Трек"
+        verbose_name_plural = "Био Треки"
+
