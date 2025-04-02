@@ -32,7 +32,7 @@ class CustomUserAdmin(UserAdmin):
 
 @admin.register(NaturalPerson)
 class NaturalPersonAdmin(admin.ModelAdmin):
-    list_display = ('pnf', 'full_name', 'birthday', 'branch', 'organization', 'department', 'jobTitle', "work_hours")
+    list_display = ('id', 'full_name', 'birthday', 'branch', 'organization', 'department', 'jobTitle', "work_hours")
     ordering = ('birthday',)
-    search_fields = ('full_name', 'pnf')
+    search_fields = ('id', 'full_name', 'pnf')
 

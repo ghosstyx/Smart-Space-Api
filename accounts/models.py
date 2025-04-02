@@ -18,18 +18,15 @@ class User(AbstractUser):
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
 
-    def __str__(self):
-        return f"{self.first_name} {self.last_name} {self.middle_name}"
-
 class NaturalPerson(models.Model):
-    pnf = models.IntegerField(unique=True, verbose_name="ПИНФЛ")
+    pnf = models.IntegerField(default=12345,blank=True, null=True, verbose_name="ПИНФЛ")
     full_name = models.CharField(max_length=255, blank=True, null=True, verbose_name="ФИО")
     birthday = models.DateField(blank=True, null=True, verbose_name='Дата рождения')
-    branch = models.ForeignKey(Branch, on_delete=models.CASCADE)
-    organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
-    department = models.ForeignKey(Department, on_delete=models.CASCADE)
-    jobTitle = models.ForeignKey(JobTitle, on_delete=models.CASCADE)
-    work_hours = models.ForeignKey(WorkHours, on_delete=models.CASCADE)
+    branch = models.ForeignKey(Branch, blank=True, null=True, on_delete=models.CASCADE)
+    organization = models.ForeignKey(Organization, blank=True, null=True, on_delete=models.CASCADE)
+    department = models.ForeignKey(Department, blank=True, null=True, on_delete=models.CASCADE)
+    jobTitle = models.ForeignKey(JobTitle, blank=True, null=True, on_delete=models.CASCADE)
+    work_hours = models.ForeignKey(WorkHours, blank=True, null=True, on_delete=models.CASCADE)
     class Meta:
         verbose_name = "Персона"
         verbose_name_plural = "Люди"

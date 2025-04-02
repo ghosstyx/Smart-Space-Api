@@ -5,8 +5,10 @@ from .models import *
 
 @admin.register(MarkTrack)
 class MarkTrackAdmin(admin.ModelAdmin):
-    list_display = ('arrival', 'person',)
-
+    list_display = ('id','checkTime', 'checkType', 'person')
+    search_fields = ('id',)
+    list_filter = ('person',)
+    date_hierarchy = 'checkTime'
 @admin.register(BioTrack)
 class BioTrackAdmin(admin.ModelAdmin):
     list_display = ("ip_address", "port", "title", "password")

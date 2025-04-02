@@ -7,6 +7,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from accounts import serializers
 from accounts.exceptions import InvalidCredentialsException
 from accounts.otp_serice import generate_otp, verify_otp
+from .models import NaturalPerson
 
 User = get_user_model()
 

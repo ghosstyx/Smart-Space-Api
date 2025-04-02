@@ -11,7 +11,7 @@ class OrganizationAdmin(admin.ModelAdmin):
 
 @admin.register(Department)
 class DepartmentAdmin(admin.ModelAdmin):
-    list_display = ("departmentTitle", "organization", )
+    list_display = ("id", "deptName", "organization", )
 
 @admin.register(JobTitle)
 class JobTitleAdmin(admin.ModelAdmin):
@@ -19,4 +19,4 @@ class JobTitleAdmin(admin.ModelAdmin):
 
 @admin.register(WorkHours)
 class WorkHoursAdmin(admin.ModelAdmin):
-    list_display = ("arrive", "leave",)
+    list_display = ("schName", "StartTime", "EndTime",)

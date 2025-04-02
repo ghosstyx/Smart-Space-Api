@@ -6,6 +6,7 @@ __pycache__/
 =======
 .idea
 >>>>>>> ef00b60 (Первый коммит)
+att2000.mdb
 
 # C extensions
 *.so
@@ -184,3 +185,6 @@ cython_debug/
 =======
 cython_debug/
 >>>>>>> ef00b60 (Первый коммит)
+
+att2000.mdb
+att2000.ldb
