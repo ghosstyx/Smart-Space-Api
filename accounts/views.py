@@ -8,6 +8,8 @@ from accounts import serializers
 from accounts.exceptions import InvalidCredentialsException
 from accounts.otp_serice import generate_otp, verify_otp
 from .models import NaturalPerson
+from django.shortcuts import render
+from django.urls import reverse_lazy
 
 User = get_user_model()
 
@@ -96,3 +98,17 @@ class SendOTPAPIView(GenericAPIView):
             return Response(data={"secret": secret_code}, status=200)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+from django.contrib.auth.views import LoginView, LogoutView
+from rest_framework.reverse import reverse_lazy
+
+
+class UserLoginView(LoginView):
+    template_name = 'login.html'
+
+    def get_success_url(self):
+        return reverse_lazy('user_profiles:profile/2420') ##
+
+class UserLogoutView(LogoutView):
+    next_page = reverse_lazy('user_profiles:profile/2420')

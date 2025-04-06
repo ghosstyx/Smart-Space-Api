@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main %}
+    <div class="profile-container">
+        <div class="profile-sidebar">
+            <div class="watermark">EMAN</div>
+            <img src="https://i.pinimg.com/736x/09/21/fc/0921fc87aa989330b8d403014bf4f340.jpg" alt="Фото сотрудника" class="profile-pic pulse">
+            <h1 class="profile-name">{{natural_person.full_name}}</h1>
+            <p class="profile-title">{{natural_person.jobTitle}}</p>
+
+            <div class="profile-details">
+                <div class="detail-item">
+                    <div class="detail-icon">📅</div>
+                    <div>
+                        <div class="detail-label">Дата рождения</div>
+                        <div class="detail-value">{{natural_person.birthday}}</div>
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-icon">🆔</div>
+                    <div>
+                        <div class="detail-label">ПНФЛ</div>
+                        <div class="detail-value">{{natural_person.pnf}}</div>
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-icon">🏢</div>
+                    <div>
+                        <div class="detail-label">Филиал</div>
+                        <div class="detail-value">{{natural_person.branch}}</div>
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-icon">📧</div>
+                    <div>
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value">a.ivanov@company.com</div>
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-icon">📱</div>
+                    <div>
+                        <div class="detail-label">Телефон</div>
+                        <div class="detail-value">+7 (915) 123-45-67</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-main">
+            <h2 class="section-title">О себе</h2>
+            <div class="about-text">
+                <p>Я старший разработчик с более чем 10-летним опытом работы в создании масштабируемых веб-приложений. Специализируюсь на JavaScript-экосистеме, включая React, Node.js и TypeScript.</p>
+                <p>В нашей компании руковожу командой из 5 разработчиков, отвечаю за архитектуру ключевых проектов и внедрение лучших практик разработки. Участвую в наставничестве новых сотрудников и проведении технических собеседований.</p>
+                <p>В свободное время участвую в open-source проектах, пишу технические статьи и выступаю на конференциях. Увлекаюсь горными лыжами и фотографией.</p>
+            </div>
+
+<!--            <h2 class="section-title">Навыки</h2>-->
+<!--            <div class="skills-container">-->
+<!--                <div class="skill-tag">JavaScript</div>-->
+<!--                <div class="skill-tag">TypeScript</div>-->
+<!--                <div class="skill-tag">React</div>-->
+<!--                <div class="skill-tag">Node.js</div>-->
+<!--                <div class="skill-tag">GraphQL</div>-->
+<!--                <div class="skill-tag">Docker</div>-->
+<!--                <div class="skill-tag">AWS</div>-->
+<!--                <div class="skill-tag">Agile</div>-->
+<!--                <div class="skill-tag">Team Leadership</div>-->
+<!--            </div>-->
+
+            <h2 class="section-title">Статистика</h2>
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-value">5+</div>
+                    <div class="stat-label">Лет в компании</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">Завершенных проектов</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">98%</div>
+                    <div class="stat-label">Удовлетворенность</div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

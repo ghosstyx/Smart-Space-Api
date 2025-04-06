@@ -1,0 +1,65 @@
+        :root {
+            --sidebar-width: 200px;
+            --header-height: 60px;
+            --primary-color: #4e73df;
+            --secondary-color: #f8f9fc;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fc;
+        }
+
+        .dashboard{
+            font-size: 35px;
+            font-weight: 400;
+        }
+
+        /* Основное содержимое */
+        .main-content {
+            /*margin-left: var(--sidebar-width);*/
+            padding: 20px;
+            min-height: calc(100vh - var(--header-height));
+        }
+
+        /* Карточки статистики */
+
+        .stat-cards{
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .stat-card {
+            border-radius: 0.35rem;
+            border-left: 0.25rem solid var(--primary-color);
+            transition: transform 0.3s;
+            padding: 10px 100px;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .charts{
+            display: flex;
+            justify-content: space-around;
+        }
+        .sales-chart{
+            width: 750px;
+            height: 500px;
+        }
+        .traf-chart{
+            width: 490px;
+        }
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .sidebar {
+                margin-left: -250px;
+            }
+            .sidebar.active {
+                margin-left: 0;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }
