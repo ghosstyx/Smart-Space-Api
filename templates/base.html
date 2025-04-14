@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Eman Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -12,6 +13,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/profile.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/base.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/employees.css' %}">
 </head>
 <body>
     <div class="sidebar">
@@ -115,6 +117,26 @@
 <script src="{% static 'assets/js/base.js' %}"></script>
 <script src="{% static 'assets/js/index.js' %}"></script>
 <script src="{% static 'assets/js/profile.js' %}"></script>
+<script src="{% static 'assets/js/employees.js' %}"></script>
+<div class="sidebar-overlay"></div>
+<style>
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 998;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+    }
 
+    .sidebar.active + .sidebar-overlay {
+        opacity: 1;
+        visibility: visible;
+    }
+</style>
 </body>
 </html>

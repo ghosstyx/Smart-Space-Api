@@ -11,12 +11,16 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
             background-color: #f5f7fa;
             color: var(--text-dark);
+        }
+        .profile{
+            font-size: 35px;
+            font-weight: 400;
         }
 
         .profile-container {
@@ -247,20 +251,20 @@
             user-select: none;
         }
 
-        @media (max-width: 768px) {
-            .profile-container {
-                grid-template-columns: 1fr;
-                padding: 1rem;
-            }
+        /*@media (max-width: 768px) {*/
+        /*    .profile-container {*/
+        /*        grid-template-columns: 1fr;*/
+        /*        padding: 1rem;*/
+        /*    }*/
 
-            .profile-sidebar {
-                text-align: center;
-            }
+        /*    .profile-sidebar {*/
+        /*        text-align: center;*/
+        /*    }*/
 
-            .detail-item {
-                justify-content: center;
-            }
-        }
+        /*    .detail-item {*/
+        /*        justify-content: center;*/
+        /*    }*/
+        /*}*/
 
         /* Анимация пульсации для активных элементов */
         @keyframes pulse {
@@ -272,3 +276,95 @@
         .pulse {
             animation: pulse 2s infinite;
         }
+
+
+        /* Мобильные устройства (до 576px) */
+  @media (max-width: 576px) {
+      .sidebar {
+                margin-left: -250px;
+            }
+      .sidebar.active {
+                margin-left: 0;
+            }
+    .profile-container {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+        margin: 1rem auto;
+        gap: 1rem;
+    }
+
+    .profile-sidebar, .profile-main {
+        padding: 1.5rem;
+    }
+
+    .profile-pic {
+        width: 120px;
+        height: 120px;
+    }
+
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+
+    .watermark {
+        font-size: 4rem;
+        bottom: 10px;
+    }
+
+    /* Скрываем сложные декоративные элементы */
+    .profile-sidebar::before,
+    .profile-sidebar::after {
+        display: none;
+    }
+}
+
+/* Планшеты (от 576px до 992px) */
+@media (min-width: 576px) and (max-width: 992px) {
+    .profile-container {
+        grid-template-columns: 250px 1fr;
+        gap: 1.5rem;
+        margin: 1.5rem auto;
+        padding: 1rem;
+    }
+
+    .profile-sidebar {
+        padding: 1.5rem;
+    }
+
+    .profile-pic {
+        width: 130px;
+        height: 130px;
+    }
+
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .watermark {
+        font-size: 5rem;
+    }
+}
+
+/* Общие улучшения для мобилок */
+@media (max-width: 992px) {
+    .profile-name {
+        font-size: 1.3rem;
+    }
+
+    .section-title {
+        font-size: 1.2rem;
+    }
+
+    .stat-value {
+        font-size: 1.8rem;
+    }
+
+    /* Оптимизация анимаций для мобил */
+    .detail-item,
+    .skill-tag,
+    .stat-card {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+<div class="employees-container">
+    <!-- Хедер с поиском -->
+    <div class="employees-header">
+        <h1>Наша команда</h1>/
+        <p class="subtitle">Вместе мы создаем будущее компании</p>
+
+        <div class="search-filter">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Найти по имени, отделу или навыку...">
+            </div>
+            <select class="department-filter">
+                <option value="all">Все отделы</option>
+                {% for item in departments%}
+                <option value="{{item.deptName}}">{{item.deptName}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <!-- Сетка сотрудников -->
+    <div class="employees-grid">
+<!--        {% for item in user %}-->
+<!--        <div class="employee-card" data-dept="{{ item.department }}">-->
+<!--            <div class="card-avatar">-->
+<!--            <img src="https://i.pinimg.com/736x/09/21/fc/0921fc87aa989330b8d403014bf4f340.jpg" alt="Фото сотрудника" class="profile-pic pulse">-->
+<!--            </div>-->
+
+<!--            <div class="card-body">-->
+<!--                <h3>{{ item.full_name }}</h3>-->
+<!--                <p class="position">{{ item.jobTitle }}</p>-->
+<!--                <p class="department">{{ item.department}}</p>-->
+<!--                <p class="department">{{ item.organization}}</p>-->
+
+<!--                <div class="card-contacts">-->
+<!--                    <a href="#" title="Написать"><i class="fas fa-envelope"></i></a>-->
+<!--                    <a href="#" title="Позвонить"><i class="fas fa-phone"></i></a>-->
+<!--                    <a href="#" title="Профиль"><i class="fas fa-user-circle"></i></a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        {% endfor %}-->
+    </div>
+</div>
+{% endblock %}

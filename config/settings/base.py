@@ -113,7 +113,7 @@ LANGUAGES = (
 )
 
 # Настройки аутентификации
-LOGIN_URL = '/admin/login/'
+LOGIN_URL = 'accounts:login'
 LOGOUT_REDIRECT_URL = '/'
 
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'

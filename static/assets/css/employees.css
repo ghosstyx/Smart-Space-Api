@@ -1,0 +1,241 @@
+:root {
+    --primary-blue: #1a73e8;
+    --dark-blue: #0d47a1;
+    --light-blue: #e8f0fe;
+    --accent-blue: #4285f4;
+    --text-dark: #202124;
+    --text-light: #f8f9fa;
+}
+
+.employees-container {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    background-color: #f5f7fa;
+}
+
+.employees-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.employees-header h1 {
+    font-size: 2.8rem;
+    color: var(--dark-blue);
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+}
+
+.employees-header h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary-blue), var(--dark-blue));
+    border-radius: 2px;
+}
+
+.search-filter {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.search-box {
+    position: relative;
+    width: 350px;
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.1);
+}
+
+.search-box i {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-blue);
+}
+
+.search-box input {
+    width: 100%;
+    padding: 12px 20px 12px 50px;
+    border: 2px solid var(--light-blue);
+    border-radius: 30px;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.search-box input:focus {
+    border-color: var(--primary-blue);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.2);
+}
+
+.department-filter {
+    padding: 12px 20px;
+    border: 2px solid var(--light-blue);
+    border-radius: 30px;
+    background-color: white;
+    color: var(--text-dark);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.department-filter:focus {
+    border-color: var(--primary-blue);
+    outline: none;
+}
+
+.employees-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.employee-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(26, 115, 232, 0.15);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.employee-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(26, 115, 232, 0.2);
+}
+
+.card-avatar {
+    position: relative;
+    height: 200px;
+    background: linear-gradient(135deg, var(--light-blue), white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.card-avatar img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.online-status {
+    position: absolute;
+    bottom: 30px;
+    right: calc(50% - 70px);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 3px solid white;
+}
+
+.online-status.online {
+    background-color: #0fce5b;
+}
+
+.online-status.offline {
+    background-color: #e0e0e0;
+}
+
+.card-body {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.card-body h3 {
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.position {
+    color: var(--primary-blue);
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    font-size: 0.95rem;
+}
+
+.department {
+    color: var(--dark-blue);
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+    padding: 0.3rem 0.8rem;
+    background: var(--light-blue);
+    border-radius: 20px;
+    display: inline-block;
+}
+
+.card-contacts {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+}
+
+.card-contacts a {
+    color: var(--primary-blue);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--light-blue);
+    transition: all 0.3s;
+}
+
+.card-contacts a:hover {
+    background: var(--primary-blue);
+    color: white;
+    transform: scale(1.1);
+}
+
+.card-skills {
+    padding: 1rem;
+    background: var(--light-blue);
+    border-top: 1px solid rgba(66, 133, 244, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+}
+
+.skill-tag {
+    background: white;
+    color: var(--primary-blue);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    box-shadow: 0 2px 6px rgba(26, 115, 232, 0.1);
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.employee-card {
+    animation: fadeIn 0.5s ease-out forwards;
+    opacity: 0;
+}
+
+.employee-card:nth-child(1) { animation-delay: 0.1s; }
+.employee-card:nth-child(2) { animation-delay: 0.2s; }
+.employee-card:nth-child(3) { animation-delay: 0.3s; }
+/* ... и так далее для остальных карточек */

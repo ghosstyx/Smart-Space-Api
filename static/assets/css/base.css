@@ -1,6 +1,9 @@
-    :root {
+ :root {
+            --primary-blue: #1a73e8;
+            --dark-blue: #0d47a1;
             --sidebar-width: 250px;
             --sidebar-bg: #0d47a1;
+            --text-dark: #202124;
             --sidebar-color: rgba(255, 255, 255, 0.8);
             --sidebar-active-color: #fff;
             --sidebar-hover-bg: rgba(255, 255, 255, 0.1);
@@ -8,16 +11,17 @@
             --sidebar-brand-bg: rgba(0, 0, 0, 0.2);
             --transition-speed: 0.3s;
         }
-
-        * {
+            * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
+            /*font-family: 'Montserrat', sans-serif;*/
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+             }
 
         body {
-            font-family: 'Nunito', sans-serif;
-            background-color: #f8f9fc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
             margin-left: var(--sidebar-width);
             transition: margin-left var(--transition-speed);
         }
@@ -29,7 +33,7 @@
             left: 0;
             bottom: 0;
             width: var(--sidebar-width);
-            background: var(--sidebar-bg);
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
             color: var(--sidebar-color);
             transition: width var(--transition-speed);
             overflow-x: hidden;
@@ -41,6 +45,7 @@
 
         /* Бренд/логотип */
         .sidebar-brand {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             height: 4.375rem;
             text-decoration: none;
             font-size: 1.2rem;
@@ -89,6 +94,8 @@
             padding: 1.2rem 1rem;
             color: var(--sidebar-color);
             text-decoration: none;
+            font-size: 17px;
+            font-weight: 400;
             transition: all var(--transition-speed);
         }
 
@@ -189,3 +196,74 @@
         .sidebar-promo .btn:hover {
             background: rgba(255, 255, 255, 0.3);
         }
+
+        @media (max-width: 576px) {
+            body {
+                margin-left: 0;
+            }
+        }
+
+
+
+
+
+
+
+
+        /* Мобильный сайдбар */
+.sidebar {
+    transition: all 0.3s ease;
+}
+
+.sidebar.active {
+    margin-left: 0;
+}
+    /* Кнопка меню */
+#sidebarToggle {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1001;
+    background: var(--primary-blue);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Сайдбар для мобильных */
+@media (max-width: 992px) {
+    #sidebarToggle {
+        display: block !important;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: -300px;
+        top: 0;
+        height: 100vh;
+        width: 280px;
+        transition: left 0.3s ease;
+        z-index: 1000;
+        overflow-y: auto;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    /* Сдвигаем контент при открытом меню */
+    body.menu-open {
+        overflow: hidden;
+        padding-right: 15px;
+    }
+
+    .profile-container {
+        margin-top: 60px;
+    }
+}

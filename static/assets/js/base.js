@@ -1,22 +1,20 @@
-    // Обработка кликов для раскрытия/закрытия подменю
-        document.querySelectorAll('[data-toggle="collapse"]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-
-                const target = this.getAttribute('href');
-                const targetElement = document.querySelector(target);
-                const parentItem = this.closest('.nav-item');
-
-                // Закрываем все открытые подменю, кроме текущего
-                document.querySelectorAll('.collapse').forEach(collapse => {
-                    if (collapse !== targetElement && collapse.classList.contains('show')) {
-                        collapse.classList.remove('show');
-                        collapse.closest('.nav-item').classList.remove('active');
-                    }
-                });
-
-                // Переключаем текущее подменю
-                targetElement.classList.toggle('show');
-                parentItem.classList.toggle('active');
-            });
+// Обработка сайдбара и подменю
+document.addEventListener('DOMContentLoaded', function() {
+    // Кнопка мобильного меню
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    if (sidebarToggle) {
+        sidebarToggle.addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
         });
+    }
+
+    // Раскрывающиеся подменю
+    document.querySelectorAll('[data-toggle="collapse"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            target.classList.toggle('show');
+            this.closest('.nav-item').classList.toggle('active');
+        });
+    });
+});

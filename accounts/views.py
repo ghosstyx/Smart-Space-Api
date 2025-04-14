@@ -108,7 +108,8 @@ class UserLoginView(LoginView):
     template_name = 'login.html'
 
     def get_success_url(self):
-        return reverse_lazy('user_profiles:profile/2420') ##
+        user = self.request.user
+        return reverse_lazy('user_profiles:profile', kwargs={'id': user.id})
 
 class UserLogoutView(LogoutView):
-    next_page = reverse_lazy('user_profiles:profile/2420')
+    next_page = reverse_lazy('user_profiles.views.view_404')
