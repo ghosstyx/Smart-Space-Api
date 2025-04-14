@@ -49,6 +49,7 @@
 
 .search-box {
     position: relative;
+    border-radius: 30px;
     width: 350px;
     box-shadow: 0 4px 12px rgba(26, 115, 232, 0.1);
 }

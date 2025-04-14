@@ -27,15 +27,21 @@
 
         <!-- Навигация -->
         <div class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{% url 'user_profiles:dashboard' id=request.user.id %}" class="nav-link">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span>
             </a>
         </div>
         <div class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{% url 'user_profiles:profile' id=request.user.id %}" class="nav-link">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Profile</span>
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="{% url 'user_profiles:employees' %}" class="nav-link">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Employees</span>
             </a>
         </div>
 

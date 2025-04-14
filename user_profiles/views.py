@@ -15,9 +15,8 @@ def dashboard(request, id):
     context = {'user': user}
     return render(request, 'index.html', context=context)
 
-def employees(request, id):
+def employees(request):
     user = NaturalPerson.objects.all()
     departments = Department.objects.all()
-    user_id = get_object_or_404(NaturalPerson, id=id)
-    context = {'user': user, 'user_id': user_id, 'departments' :departments}
+    context = {'user': user, 'departments' :departments}
     return render(request, 'employees.html', context=context)
