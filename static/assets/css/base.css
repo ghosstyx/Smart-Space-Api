@@ -20,12 +20,67 @@
              }
 
         body {
+            background-color: rgb(156 163 175);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--text-dark);
             margin-left: var(--sidebar-width);
             transition: margin-left var(--transition-speed);
         }
+        .topbar{
+            padding-top: 20px;
+            background-color: #ffffff;
+            margin: 0 20px;
+            padding-bottom: 10px;
+        }
+        .tb-display{
+            display: flex;
+            justify-content: space-between;
+            justify-items: center;
+            align-items: center;
+        }
 
+        .sb-not-prof{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sb-profile{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+        }
+        .notification{
+            text-decoration: none;
+            color: black;
+            margin: 0 7px;
+        }
+
+        .sb-notifications{
+            border-right-style: groove;
+            align-items: center;
+            padding-right: 10px;
+            margin: 10px 20px 10px 30px;
+        }
+
+        .sb-profile-name{
+            font-weight: 400;
+            font-size: 17px;
+            margin: 0;
+            color: grey;
+        }
+
+        .profile-picture{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid rgba(255, 255, 255, 0.2);
+            margin: 0 5px;
+            display: block;
+            transition: all 0.3s ease;
+        }
         /* Основной стиль сайдбара */
         .sidebar {
             position: fixed;

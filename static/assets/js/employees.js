@@ -23,20 +23,28 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Фильтр по отделам
-    const deptFilter = document.querySelector('.department-filter');
 
-    deptFilter.addEventListener('change', function() {
-        const selectedDept = this.value;
+document.getElementById('departmentFilter').addEventListener('change', function() {
+    const deptId = this.value;
 
-        employeeCards.forEach(card => {
-            if (selectedDept === 'all' || card.dataset.dept === selectedDept) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
+    fetch(`?department=${deptId}`, {
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Ошибка сети');
+        return response.json();
+    })
+    .then(data => {
+        document.querySelector('.employees-grid').innerHTML = data.html;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Ошибка при фильтрации');
     });
+});
+
 
     // Анимация при наведении
     employeeCards.forEach(card => {
@@ -51,3 +59,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+

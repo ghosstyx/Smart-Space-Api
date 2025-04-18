@@ -15,6 +15,7 @@ urlpatterns = [
     path('org/', include('organizations.urls', namespace='organizations')),
     path('visit/', include('visits.urls', namespace='visits')),
     path('user/', include('user_profiles.urls', namespace='user_profiles')),
+    path('desk/', include('help_desk.urls', namespace='help_desk')),
     # path('organizations/', include('organizations.urls', namespace='organizations')),
 ]
 

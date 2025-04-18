@@ -169,6 +169,14 @@
     font-size: 0.95rem;
 }
 
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-size: 1.2rem;
+}
+
 .department {
     color: var(--dark-blue);
     font-weight: 500;

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'user_profiles',
     'organizations',
     'visits',
+    'help_desk',
 
     # 'django.contrib.sites',
     # 'allauth',

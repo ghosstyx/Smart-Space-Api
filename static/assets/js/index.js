@@ -1,7 +1,3 @@
-         // Переключение сайдбара на мобильных устройствах
-        document.getElementById('sidebarToggle').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.toggle('active');
-        });
 
         // График продаж
         const salesCtx = document.getElementById('salesChart').getContext('2d');

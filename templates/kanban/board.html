@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main %}
+<div class="kanban-container">
+    <div class="kanban-header">
+        <h1 class="dashboard">{{ project.title }}</h1>
+        <p class="project-description">{{ project.description }}</p>
+        <button id="new-task-btn" class="btn-primary">+ New Task</button>
+    </div>
+
+    <div class="kanban-board">
+        <!-- To Do Column -->
+        <div class="kanban-column" id="todo-column">
+            <div class="column-header">
+                <h2>To Do</h2>
+                <span class="task-count">{{ todo_tasks.count }}</span>
+            </div>
+            <div class="tasks-list" id="todo-tasks">
+                {% for task in todo_tasks %}
+                {% include 'kanban/partials/task_card.html' %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- In Progress Column -->
+        <div class="kanban-column" id="progress-column">
+            <div class="column-header">
+                <h2>In Progress</h2>
+                <span class="task-count">{{ progress_tasks.count }}</span>
+            </div>
+            <div class="tasks-list" id="progress-tasks">
+                {% for task in progress_tasks %}
+                {% include 'kanban/partials/task_card.html' %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Done Column -->
+        <div class="kanban-column" id="done-column">
+            <div class="column-header">
+                <h2>Done</h2>
+                <span class="task-count">{{ done_tasks.count }}</span>
+            </div>
+            <div class="tasks-list" id="done-tasks">
+                {% for task in done_tasks %}
+                {% include 'kanban/partials/task_card.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Task Modal -->
+<div id="task-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2 id="modal-title">New Task</h2>
+        <form id="task-form" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn-save">Save Task</button>
+        </form>
+    </div>
+</div>
+
+<!-- Delete Notification -->
+<div id="confirm-delete-modal" class="modal">
+    <div class="modal-content confirm-modal">
+        <h3>Подтвердите удаление</h3>
+        <p>Вы уверены, что хотите удалить эту задачу?</p>
+        <div class="confirm-buttons">
+            <button id="confirm-delete-btn" class="btn-danger">Удалить</button>
+            <button id="cancel-delete-btn" class="btn-secondary">Отмена</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+<div class="task-card" data-task-id="{{ task.id }}" draggable="true">
+    <div class="task-header">
+        <h3>{{ task.title }}</h3>
+        <div class="task-actions">
+<!--            <button class="edit-task-btn" data-task-id="{{ task.id }}">✏️</button>-->
+            <button class="delete-task-btn" data-task-id="{{ task.id }}">×</button>
+        </div>
+    </div>
+    <p class="task-description">{{ task.description|truncatechars:100 }}</p>
+    <div class="task-footer">
+        <span class="task-assignee">
+            {% if task.assignee %}
+            👤 {{ task.assignee.full_name }}
+            {% else %}
+            👤 Unassigned
+            {% endif %}
+        </span>
+        {% if task.due_date %}
+        <span class="task-due {% if task.is_overdue %}overdue{% endif %}">
+            📅 {{ task.due_date|date:"M d" }}
+        </span>
+        {% endif %}
+    </div>
+</div>
