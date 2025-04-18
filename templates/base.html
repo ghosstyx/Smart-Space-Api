@@ -30,25 +30,25 @@
         <!-- Навигация -->
         <div class="nav-item">
             <a href="{% url 'user_profiles:dashboard' id=request.user.id %}" class="nav-link">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <i class="fas fa-fw fa-chart-area"></i>
                 <span>Dashboard</span>
             </a>
         </div>
         <div class="nav-item">
             <a href="{% url 'user_profiles:profile' id=request.user.id %}" class="nav-link">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <i class="fa-solid fa-user"></i>
                 <span>Profile</span>
             </a>
         </div>
         <div class="nav-item">
             <a href="{% url 'user_profiles:employees' %}" class="nav-link">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <i class="fa-solid fa-users"></i>
                 <span>Employees</span>
             </a>
         </div>
         <div class="nav-item">
             <a href="{% url 'help_desk:kanban_board' pk=request.user.id %}" class="nav-link">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <i class="fas fa-fw fa-table"></i>
                 <span>Kanban Board</span>
             </a>
         </div>
@@ -92,24 +92,6 @@
 
         <!-- Заголовок группы -->
         <div class="sidebar-heading">Addons</div>
-
-        <!-- Раскрывающийся пункт -->
-        <div class="nav-item">
-            <a href="#pages" class="nav-link" data-toggle="collapse">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Pages</span>
-                <i class="fas fa-fw fa-angle-down collapse-arrow"></i>
-            </a>
-            <div id="pages" class="collapse">
-                <div class="collapse-inner">
-                    <a href="#" class="collapse-item">Login</a>
-                    <a href="#" class="collapse-item">Register</a>
-                    <a href="#" class="collapse-item">Forgot Password</a>
-                    <a href="#" class="collapse-item">404 Page</a>
-                    <a href="#" class="collapse-item">Blank Page</a>
-                </div>
-            </div>
-        </div>
 
         <!-- Обычные пункты -->
         <div class="nav-item">
