@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function searchWithAjax(term) {
         loadingIndicator.style.display = 'block';
 
-        fetch(`/api/employees/?search=${term}`)
+        fetch(`/user/employees/?search=${term}`)
             .then(response => response.json())
             .then(data => {
                 document.getElementById('employeesResults').innerHTML = data.html;
