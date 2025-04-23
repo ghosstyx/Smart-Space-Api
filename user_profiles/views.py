@@ -25,20 +25,32 @@ class DashboardView(DetailView):
 class EmployeesView(View):
     def get(self, request, *args, **kwargs):
         departments = Department.objects.all()
+        search_term = request.GET.get('search', '')
         selected_dept = request.GET.get('department')
-
-        employees = NaturalPerson.objects.select_related('department')[:20]
+        employees = NaturalPerson.objects.select_related('department').only(
+            'id', 'full_name', 'department__deptName'
+        )
         if selected_dept and selected_dept != 'all':
-            employees = employees.filter(department__id=selected_dept)
+            try:
+                employees = employees.filter(department__id=int(selected_dept))
+            except ValueError:
+                pass
+        employees = employees[:20]
 
+        if search_term:
+            employees = employees.filter(
+                Q(full_name__icontains=search_term) |
+                Q(position__icontains=search_term) |
+                Q(department__name__icontains=search_term)
+            )
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
             html = render_to_string('partials/_employees_list.html', {
                 'employees': employees
             })
             return JsonResponse({'html': html})
 
-        context = {
+        return render(request, 'employees.html', {
             'employees': employees,
             'departments': departments,
-        }
-        return render(request, 'employees.html', context)
+            'selected_dept': selected_dept,
+        })

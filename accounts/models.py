@@ -8,11 +8,11 @@ class User(AbstractUser):
     email = models.EmailField(unique=True, null=True, verbose_name='Электронная почта')
     phone_number = PhoneNumberField(unique=True, verbose_name='Номер телефона')
     middle_name = models.CharField(max_length=200, blank=True, null=True, verbose_name='Отчество')
-
-    USERNAME_FIELD = 'phone_number'
-    REQUIRED_FIELDS = []
-
-    objects = UserManager()
+    birthday = models.DateField(null=True, blank=True)
+    # USERNAME_FIELD = 'phone_number'
+    # REQUIRED_FIELDS = []
+    #
+    # objects = UserManager()
 
     class Meta:
         verbose_name = 'Пользователь'
