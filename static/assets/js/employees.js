@@ -27,19 +27,18 @@ document.addEventListener('DOMContentLoaded', function() {
             loadingIndicator.style.display = 'none';
             }, 300);
     });
-    function searchWithAjax(term) {
-        loadingIndicator.style.display = 'block';
-
-        fetch(`/user/employees/?search=${term}`)
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('employeesResults').innerHTML = data.html;
-            })
-            .finally(() => {
-                loadingIndicator.style.display = 'none';
-            });
-    }
-
+    // function searchWithAjax(term) {
+    //     loadingIndicator.style.display = 'block';
+    //
+    //     fetch(`/user/employees/?search=${term}`)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             document.getElementById('employeesResults').innerHTML = data.html;
+    //         })
+    //         .finally(() => {
+    //             loadingIndicator.style.display = 'none';
+    //         });
+    // }
 
     document.getElementById('departmentFilter').addEventListener('change', function() {
         const deptId = this.value;

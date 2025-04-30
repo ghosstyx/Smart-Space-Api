@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+{% block main %}
+<div class="chat-container">
+    <main class="chat-main">
+        <header class="chat-header">
+            <div class="chat-partner">
+                {% for p in chat.participants.all %}
+                    {% if p.id != current_user.id %}
+                        <a href="{% url 'chats:chat_list' user_id=current_user.id%}" class="chat-back-btn">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </a>
+                        <div class="partner-avatar"></div>
+                        <a href="{% url 'user_profiles:profile' id=p.id %}" class="partner-name">{{ p }}</a>
+                    {% else %}
+                     <div class="partner-name">Избранное</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </header>
+
+        <div class="message-container" id="messageContainer">
+            {% for msg in messages %}
+            <div class="message {% if msg.sender.id == current_user.id %}sent{% else %}received{% endif %}">
+                <div class="message-content">
+                    <div class="message-text">{{ msg.text }}</div>
+                    <div class="message-time">{{ msg.timestamp|date:"H:i" }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <form method="post" action="{% url 'chats:chat_detail' user_id=current_user.id pk=chat.id %}" class="message-form">
+            {% csrf_token %}
+            <textarea name="text" rows="1" placeholder="Напишите сообщение..." required></textarea>
+            <button type="submit" class="btn-send">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="currentColor" d="M1.101 21.757L23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"></path>
+                </svg>
+            </button>
+        </form>
+    </main>
+</div>
+
+<script>
+    // Автоматическая прокрутка вниз
+    const container = document.getElementById('messageContainer');
+    container.scrollTop = container.scrollHeight;
+
+    // Автоматическое увеличение высоты textarea
+    const textarea = document.querySelector('textarea');
+    textarea.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+</script>
+{% endblock %}

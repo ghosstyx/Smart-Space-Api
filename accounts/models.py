@@ -31,7 +31,9 @@ class NaturalPerson(models.Model):
         verbose_name = "Персона"
         verbose_name_plural = "Люди"
     def __str__(self):
-        return f"{self.full_name} {self.birthday}"
+        return f"{self.full_name}"
+    def get_active_chats(self):
+        return self.chats.all()
 
 
 class LogSms(models.Model):

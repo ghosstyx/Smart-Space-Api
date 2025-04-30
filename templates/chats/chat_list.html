@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+<div class="chat-container">
+    <aside class="chat-sidebar">
+        <header class="sidebar-header">
+            <h2>Мои чаты</h2>
+        </header>
+
+        <div class="chat-list">
+            {% for chat in chats %}
+            <a href="{% url 'chats:chat_detail' user_id=current_user.id pk=chat.id %}"
+               class="chat-item {% if chat.id == active_chat_id %}active{% endif %}">
+                <div class="chat-avatar">
+                    {% for p in chat.participants.all %}
+                        {% if p.id != current_user.id %}
+                            <span></span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="chat-info">
+                    <div class="chat-name">
+                        {% for p in chat.participants.all %}
+                            {% if p.id != current_user.id %}
+                                {{ p }}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="chat-preview">
+                        {% with last_message=chat.messages.last %}
+                            {% if last_message %}
+                                {{ last_message.text|truncatechars:30 }}
+                            {% else %}
+                                Чат создан
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                </div>
+                <div class="chat-time">
+                    {% if chat.last_message %}
+                        {{ chat.last_message|date:"H:i" }}
+                    {% endif %}
+                </div>
+            </a>
+            {% empty %}
+            <div class="no-chats">У вас пока нет чатов</div>
+            {% endfor %}
+        </div>
+    </aside>
+
+    <main class="chat-main">
+        <div class="new-chat-section">
+            <h3>Новый чат</h3>
+            <form method="post" action="{% url 'chats:chat_create' user_id=current_user.id %}" class="new-chat-form">
+                {% csrf_token %}
+                <select name="other" required class="user-select">
+                    <option value="" disabled selected>Выберите сотрудника</option>
+                    {% for person in other_users %}
+                        <option value="{{ person.id }}">{{ person }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn-create">Создать чат</button>
+            </form>
+        </div>
+    </main>
+</div>
+{% endblock %}

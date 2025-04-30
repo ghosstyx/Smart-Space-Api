@@ -16,6 +16,7 @@ urlpatterns = [
     path('visit/', include('visits.urls', namespace='visits')),
     path('user/', include('user_profiles.urls', namespace='user_profiles')),
     path('desk/', include('help_desk.urls', namespace='help_desk')),
+    path('chat/', include('chats.urls', namespace='chats')),
     # path('organizations/', include('organizations.urls', namespace='organizations')),
 ]
 

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'organizations',
     'visits',
     'help_desk',
+    'chats',
 
     # 'django.contrib.sites',
     # 'allauth',

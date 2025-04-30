@@ -54,3 +54,6 @@ class EmployeesView(View):
             'departments': departments,
             'selected_dept': selected_dept,
         })
+
+    def get_queryset(self):
+        return NaturalPerson.objects.exclude(id=self.request.user.id)

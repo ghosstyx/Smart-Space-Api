@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/index.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/employees.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/kanban.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/chats.css' %}">
 </head>
 <body>
     <div class="sidebar">
@@ -29,13 +30,13 @@
 
         <!-- Навигация -->
         <div class="nav-item">
-            <a href="{% url 'user_profiles:dashboard' id=request.user.id %}" class="nav-link">
+            <a href="{% url 'user_profiles:dashboard' id=user.id %}" class="nav-link">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>Dashboard</span>
             </a>
         </div>
         <div class="nav-item">
-            <a href="{% url 'user_profiles:profile' id=request.user.id %}" class="nav-link">
+            <a href="{% url 'user_profiles:profile' id=user.id %}" class="nav-link">
                 <i class="fa-solid fa-user"></i>
                 <span>Profile</span>
             </a>
@@ -47,7 +48,7 @@
             </a>
         </div>
         <div class="nav-item">
-            <a href="{% url 'help_desk:kanban_board' pk=request.user.id %}" class="nav-link">
+            <a href="{% url 'help_desk:kanban_board' pk=user.id %}" class="nav-link">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Kanban Board</span>
             </a>
@@ -65,7 +66,7 @@
             </a>
             <div id="components" class="collapse">
                 <div class="collapse-inner">
-                    <a href="#" class="collapse-item">Direct</a>
+                    <a href="{% url 'chats:chat_list' user_id=user.id%}" class="collapse-item">Direct</a>
                     <a href="#" class="collapse-item">Requests</a>
                     <a href="#" class="collapse-item">Forms</a>
                 </div>
@@ -130,25 +131,5 @@
 <script src="{% static 'assets/js/employees.js' %}"></script>
 <script src="{% static 'assets/js/kanban.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<div class="sidebar-overlay"></div>
-<style>
-    .sidebar-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.5);
-        z-index: 998;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s;
-    }
-
-    .sidebar.active + .sidebar-overlay {
-        opacity: 1;
-        visibility: visible;
-    }
-</style>
 </body>
 </html>
