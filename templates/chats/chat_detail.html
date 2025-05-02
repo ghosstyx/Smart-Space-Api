@@ -12,8 +12,6 @@
                         </a>
                         <div class="partner-avatar"></div>
                         <a href="{% url 'user_profiles:profile' id=p.id %}" class="partner-name">{{ p }}</a>
-                    {% else %}
-                     <div class="partner-name">Избранное</div>
                     {% endif %}
                 {% endfor %}
             </div>
@@ -41,17 +39,4 @@
         </form>
     </main>
 </div>
-
-<script>
-    // Автоматическая прокрутка вниз
-    const container = document.getElementById('messageContainer');
-    container.scrollTop = container.scrollHeight;
-
-    // Автоматическое увеличение высоты textarea
-    const textarea = document.querySelector('textarea');
-    textarea.addEventListener('input', function() {
-        this.style.height = 'auto';
-        this.style.height = (this.scrollHeight) + 'px';
-    });
-</script>
 {% endblock %}

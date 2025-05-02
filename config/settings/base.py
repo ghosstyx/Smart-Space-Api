@@ -149,7 +149,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+handler403 = 'user_profiles.views.permission_denied_view'
 # Authentication
 AUTH_USER_MODEL = 'accounts.User'
 

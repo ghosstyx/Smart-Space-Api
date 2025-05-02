@@ -148,6 +148,7 @@
             background: white;
             border-radius: 16px;
             padding: 2rem;
+            margin-bottom: 30px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
         }
 
@@ -180,6 +181,21 @@
         @keyframes slideUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 30px;
+        }
+
+
+        .btn-primary:hover {
+            background-color: #0d47a1;
         }
 
         .skills-container {

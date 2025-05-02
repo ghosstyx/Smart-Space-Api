@@ -22,11 +22,13 @@ class NaturalPerson(models.Model):
     pnf = models.IntegerField(default=12345,blank=True, null=True, verbose_name="ПИНФЛ")
     full_name = models.CharField(max_length=255, blank=True, null=True, verbose_name="ФИО")
     birthday = models.DateField(blank=True, null=True, verbose_name='Дата рождения')
+    about = models.TextField(max_length=1000, blank=True, null=True, verbose_name="О себе", help_text="Расскажите о себе, своих интересах и опыте")
     branch = models.ForeignKey(Branch, blank=True, null=True, on_delete=models.CASCADE)
     organization = models.ForeignKey(Organization, blank=True, null=True, on_delete=models.CASCADE)
     department = models.ForeignKey(Department, blank=True, null=True, on_delete=models.CASCADE)
     jobTitle = models.ForeignKey(JobTitle, blank=True, null=True, on_delete=models.CASCADE)
     work_hours = models.ForeignKey(WorkHours, blank=True, null=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, blank=True, null=True, on_delete=models.CASCADE, related_name='naturalperson', verbose_name="Пользователь")
     class Meta:
         verbose_name = "Персона"
         verbose_name_plural = "Люди"
@@ -34,6 +36,9 @@ class NaturalPerson(models.Model):
         return f"{self.full_name}"
     def get_active_chats(self):
         return self.chats.all()
+
+    def get_absolute_url(self):
+        return reverse('profile', kwargs={'id': self.id})
 
 
 class LogSms(models.Model):
