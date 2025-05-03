@@ -38,7 +38,7 @@ class NaturalPerson(models.Model):
         return self.chats.all()
 
     def get_absolute_url(self):
-        return reverse('profile', kwargs={'id': self.id})
+        return reverse('user_profiles:profile', kwargs={'np_id': self.id})
 
 
 class LogSms(models.Model):

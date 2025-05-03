@@ -1,28 +1,32 @@
 {% load static %}
 <!-- partials/_employees_list.html -->
 <div class="employees-grid">
-        {% for employee in employees %}
-        <div class="employee-card" data-dept="{{ employee.department }}">
-            <div class="card-avatar">
-            <img src="https://i.pinimg.com/736x/09/21/fc/0921fc87aa989330b8d403014bf4f340.jpg" alt="Фото сотрудника" class="profile-pic pulse">
-            </div>
+    {% for employee in employees %}
+    <div class="employee-card" data-dept="{{ employee.department }}">
+        <div class="card-avatar">
+        <img src="https://i.pinimg.com/736x/09/21/fc/0921fc87aa989330b8d403014bf4f340.jpg" alt="Фото сотрудника" class="profile-pic pulse">
+        </div>
 
-            <div class="card-body">
-                <a href="{% url 'user_profiles:profile' id=user.id %}" class="profile-link">{{ employee.full_name }}</a>
-                <p class="position">{{ employee.jobTitle }}</p>
-                <p class="department">{{ employee.department}}</p>
-                <p class="department">{{ employee.organization}}</p>
+        <div class="card-body">
+            <a href="{% url 'user_profiles:profile' np_id=employee.id %}" class="profile-link">
+                {{ employee.full_name }}
+            </a>
+            <p class="position">{{ employee.jobTitle }}</p>
+            <p class="department">{{ employee.department}}</p>
+            <p class="department">{{ employee.organization}}</p>
 
-                <div class="card-contacts">
-                    <a href="#" title="Написать"><i class="fas fa-envelope"></i></a>
-                    <a href="#" title="Позвонить"><i class="fas fa-phone"></i></a>
-                    <a href="#" title="Профиль"><i class="fas fa-user-circle"></i></a>
-                </div>
+            <div class="card-contacts">
+                <a href="#" title="Написать"><i class="fas fa-envelope"></i></a>
+                <a href="#" title="Позвонить"><i class="fas fa-phone"></i></a>
+                <a href="{% url 'user_profiles:profile' np_id=employee.id %}" title="Профиль">
+                    <i class="fas fa-user-circle"></i>
+                </a>
             </div>
         </div>
-        {% empty %}
-        <div class="no-results">
-            <p>Сотрудники не найдены</p>
-        </div>
-        {% endfor %}
     </div>
+    {% empty %}
+    <div class="no-results">
+        <p>Сотрудники не найдены</p>
+    </div>
+    {% endfor %}
+</div>

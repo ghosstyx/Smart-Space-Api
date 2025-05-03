@@ -11,15 +11,15 @@
         <div class="profile-sidebar">
             <div class="watermark">EMAN</div>
             <img src="https://i.pinimg.com/736x/09/21/fc/0921fc87aa989330b8d403014bf4f340.jpg" alt="Фото сотрудника" class="profile-pic pulse">
-            <h1 class="profile-name">{{user.full_name}}</h1>
-            <p class="profile-title">{{user.jobTitle}}</p>
+            <h1 class="profile-name">{{natural_person.full_name}}</h1>
+            <p class="profile-title">{{natural_person.jobTitle}}</p>
 
             <div class="profile-details">
                 <div class="detail-item">
                     <div class="detail-icon">📅</div>
                     <div>
                         <div class="detail-label">Дата рождения</div>
-                        <div class="detail-value">{{user.birthday}}</div>
+                        <div class="detail-value">{{natural_person.birthday}}</div>
                     </div>
                 </div>
 
@@ -27,7 +27,7 @@
                     <div class="detail-icon">🆔</div>
                     <div>
                         <div class="detail-label">ПНФЛ</div>
-                        <div class="detail-value">{{user.pnf}}</div>
+                        <div class="detail-value">{{natural_person.pnf}}</div>
                     </div>
                 </div>
 
@@ -35,7 +35,7 @@
                     <div class="detail-icon">🏢</div>
                     <div>
                         <div class="detail-label">Филиал</div>
-                        <div class="detail-value">{{user.branch}}</div>
+                        <div class="detail-value">{{natural_person.branch}}</div>
                     </div>
                 </div>
 

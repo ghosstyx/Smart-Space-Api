@@ -8,6 +8,7 @@ from accounts.models import NaturalPerson
 from django.urls import reverse
 from organizations.models import Department
 from .forms import ProfileForm
+from django.db.models import Q
 from django.contrib import messages
 app_name = 'user_profiles'
 
@@ -16,13 +17,14 @@ class ProfileView(LoginRequiredMixin, DetailView):
     model = NaturalPerson
     form_class = ProfileForm
     template_name = 'user_profiles/profile-owner.html'
-    context_object_name = 'user'
-    pk_url_kwarg = 'id'
+    context_object_name = 'natural_person'
+    pk_url_kwarg = 'np_id'  # Используем np_id вместо id
 
     def dispatch(self, request, *args, **kwargs):
-        self.profile_user = get_object_or_404(NaturalPerson, id=kwargs['id'])
+        # Получаем профиль по NaturalPerson.id
+        self.profile_natural = get_object_or_404(NaturalPerson, id=kwargs['np_id'])
 
-        # Автоматическое создание связи при отсутствии (для разработки)
+        # Автоматическое создание NaturalPerson для текущего пользователя (если нужно)
         if not hasattr(request.user, 'naturalperson'):
             NaturalPerson.objects.create(
                 user=request.user,
@@ -30,59 +32,51 @@ class ProfileView(LoginRequiredMixin, DetailView):
             )
             messages.info(request, "Профиль автоматически создан")
 
-        # Теперь проверка будет работать
-        if request.user.naturalperson.id != self.profile_user.id:
-            return redirect('user_profiles:profile_visitor', id=self.profile_user.id)
+        # Ключевая проверка: сравниваем NaturalPerson текущего пользователя с просматриваемым
+        if hasattr(request.user, 'naturalperson'):
+            if request.user.naturalperson.id != self.profile_natural.id:
+                self.template_name = 'user_profiles/profile-visitor.html'
 
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = ProfileForm(instance=self.object)
+        if hasattr(self.request.user, 'naturalperson'):
+            if self.request.user.naturalperson.id == self.object.id:
+                context['form'] = ProfileForm(instance=self.object)
         return context
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        form = self.form_class(
-            request.POST,
-            instance=self.object
-        )
+        if not hasattr(request.user, 'naturalperson') or request.user.naturalperson.id != self.object.id:
+            raise PermissionDenied
 
-        if not form.is_valid():
-            return self.render_to_response(
-                self.get_context_data(form=form)
-            )
+        form = self.form_class(request.POST, instance=self.object)
+        if form.is_valid():
+            form.save()
+            return redirect('user_profiles:profile', np_id=self.object.id)
+        return self.render_to_response(self.get_context_data(form=form))
 
-        form.save()
-        return redirect(
-            reverse(
-                'profile',
-                kwargs={'id': self.object.id}
-            )
-        )
-
-
-class ProfileVisitorView(DetailView):
-    template_name = 'user_profiles/profile-visitor.html'
-    model = NaturalPerson
-    context_object_name = 'user'
-    pk_url_kwarg = 'id'
 
 class DashboardView(DetailView):
     model = NaturalPerson
     template_name = 'index.html'
     context_object_name = 'user'
-    pk_url_kwarg = 'id'
+    pk_url_kwarg = 'np_id'
 
+    def dispatch(self, request, *args, **kwargs):
+        if not hasattr(request.user, 'naturalperson'):
+            return redirect('create-profile')  # Или другая логика обработки
+        return super().dispatch(request, *args, **kwargs)
 
 class EmployeesView(View):
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         departments = Department.objects.all()
-        self.profile_user = get_object_or_404(NaturalPerson, id=kwargs['id'])
+        self.profile_user = get_object_or_404(NaturalPerson, user=request.user)
         search_term = request.GET.get('search', '')
         selected_dept = request.GET.get('department')
         employees = NaturalPerson.objects.select_related('department').only(
-            'id', 'full_name', 'department__deptName'
+            'id', 'full_name', 'department__deptName', 'jobTitle__jobTitle'
         )
         if selected_dept and selected_dept != 'all':
             try:
@@ -94,8 +88,8 @@ class EmployeesView(View):
         if search_term:
             employees = employees.filter(
                 Q(full_name__icontains=search_term) |
-                Q(position__icontains=search_term) |
-                Q(department__name__icontains=search_term)
+                Q(jobTitle__jobTitle__icontains=search_term) |
+                Q(department__deptName__icontains=search_term)
             )
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
             html = render_to_string('partials/_employees_list.html', {

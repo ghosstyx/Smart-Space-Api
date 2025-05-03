@@ -30,13 +30,21 @@
 
         <!-- Навигация -->
         <div class="nav-item">
-            <a href="{% url 'user_profiles:dashboard' id=user.id %}" class="nav-link">
+            {% if user.is_authenticated and user.naturalperson %}
+                <a href="{% url 'user_profiles:dashboard' np_id=user.naturalperson.id %}" class="nav-link">
+            {% else %}
+                <a href="{% url 'accounts:login' %}" class="nav-link" title="Сначала войдите в систему">
+            {% endif %}
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>Dashboard</span>
             </a>
         </div>
         <div class="nav-item">
-            <a href="{% url 'user_profiles:profile' id=user.id %}" class="nav-link">
+            {% if user.is_authenticated and user.naturalperson %}
+                <a href="{% url 'user_profiles:profile' np_id=user.naturalperson.id %}" class="nav-link">
+            {% else %}
+                <a href="{% url 'accounts:login' %}" class="nav-link" title="Сначала войдите в систему">
+            {% endif %}
                 <i class="fa-solid fa-user"></i>
                 <span>Profile</span>
             </a>
@@ -112,7 +120,12 @@
                     </svg>
                 </a>
             </div>
-            <a href="{% url 'user_profiles:profile' id=request.user.id %}" class="sb-profile">
+
+            {% if user.is_authenticated and user.naturalperson %}
+                <a href="{% url 'user_profiles:profile' np_id=user.naturalperson.id %}" class="nav-link">
+            {% else %}
+                <a href="{% url 'accounts:login' %}" class="nav-link" title="Сначала войдите в систему">
+            {% endif %}
                 <div class="sb-profile-name">
                     {{user.full_name}}
                 </div>
