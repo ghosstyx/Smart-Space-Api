@@ -18,13 +18,11 @@ class ProfileView(LoginRequiredMixin, DetailView):
     form_class = ProfileForm
     template_name = 'user_profiles/profile-owner.html'
     context_object_name = 'natural_person'
-    pk_url_kwarg = 'np_id'  # Используем np_id вместо id
+    pk_url_kwarg = 'np_id'
 
     def dispatch(self, request, *args, **kwargs):
-        # Получаем профиль по NaturalPerson.id
         self.profile_natural = get_object_or_404(NaturalPerson, id=kwargs['np_id'])
 
-        # Автоматическое создание NaturalPerson для текущего пользователя (если нужно)
         if not hasattr(request.user, 'naturalperson'):
             NaturalPerson.objects.create(
                 user=request.user,
@@ -32,7 +30,6 @@ class ProfileView(LoginRequiredMixin, DetailView):
             )
             messages.info(request, "Профиль автоматически создан")
 
-        # Ключевая проверка: сравниваем NaturalPerson текущего пользователя с просматриваемым
         if hasattr(request.user, 'naturalperson'):
             if request.user.naturalperson.id != self.profile_natural.id:
                 self.template_name = 'user_profiles/profile-visitor.html'
@@ -66,7 +63,11 @@ class DashboardView(DetailView):
 
     def dispatch(self, request, *args, **kwargs):
         if not hasattr(request.user, 'naturalperson'):
-            return redirect('create-profile')  # Или другая логика обработки
+            NaturalPerson.objects.create(
+                user=request.user,
+                full_name=request.user.get_full_name() or f"User-{request.user.id}"
+            )
+            messages.info(request, "Профиль автоматически создан")
         return super().dispatch(request, *args, **kwargs)
 
 class EmployeesView(View):

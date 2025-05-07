@@ -1,10 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+
 /* Основные стили */
 .chat-container {
     display: flex;
     height: 100vh;
     margin: 0 20px;
     background: white;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .chat-sidebar {
@@ -63,6 +66,13 @@
     background: #f0f2f5;
 }
 
+.chat-pfp{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+
+}
+
 .chat-avatar {
     width: 50px;
     height: 50px;
@@ -74,7 +84,6 @@
     margin-right: 12px;
     font-weight: bold;
     font-size: 18px;
-    color: #54656f;
 }
 
 .chat-info {
@@ -195,9 +204,13 @@
 }
 
 .message-text {
-    font-size: 15px;
-    line-height: 1.4;
-    word-wrap: break-word;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+}
+
+.chat-item, .message, .btn-send, .partner-avatar {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .message-time {
@@ -208,22 +221,36 @@
 }
 
 .message-form {
-    padding: 10px;
+     position: sticky;
+    bottom: 0;
     background: #f0f2f5;
+    padding: 12px 20px;
+    border-top: 1px solid #e0e5e9;
+    z-index: 10;
+    backdrop-filter: blur(5px);
     display: flex;
     align-items: center;
 }
 
 .message-form textarea {
     flex: 1;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 15px;
     resize: none;
     max-height: 100px;
     outline: none;
-    font-family: inherit;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 15px;
+    line-height: 1.5;
+    padding: 12px 16px;
+    border-radius: 20px;
+    border: 1px solid #e0e5e9;
+    background: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+.message-form textarea:focus {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 2px rgba(0, 168, 132, 0.2);
 }
 
 .btn-send {
@@ -256,6 +283,21 @@
     gap: 15px;
 }
 
+.chat-date-indicator {
+    text-align: center;
+    margin: 15px 0;
+}
+
+.chat-date-indicator span {
+    background-color: #e9edef;
+    color: #54656f;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    display: inline-block;
+    animation: fadeIn 0.5s ease;
+}
+
 .user-select {
     padding: 12px;
     border-radius: 8px;
@@ -266,7 +308,7 @@
 
 .btn-create {
     padding: 12px;
-    background: #00a884;
+    background: var(--primary-blue);
     color: white;
     border: none;
     border-radius: 8px;
@@ -276,5 +318,202 @@
 }
 
 .btn-create:hover {
-    background: #008069;
+    background: var(--dark-blue);
 }
+
+/* Добавьте это в конец файла chats.css */
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Улучшения для чата */
+.chat-container {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px auto;
+    max-width: 1200px;
+    height: calc(100vh - 40px);
+    transition: all 0.3s ease;
+}
+
+.chat-header {
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.chat-header:hover {
+    transform: translateY(-2px);
+}
+
+.message {
+    animation: fadeIn 0.3s ease forwards;
+    opacity: 0;
+    animation-delay: 0.1s;
+}
+
+.message.sent {
+    animation-delay: 0.15s;
+}
+
+.partner-avatar {
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.partner-avatar:hover {
+    transform: scale(1.1);
+}
+
+.message-content {
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.message.sent .message-content:hover {
+    transform: translateX(-5px);
+}
+
+.message.received .message-content:hover {
+    transform: translateX(5px);
+}
+
+.message-form {
+    border-top: 1px solid #e9edef;
+    transition: all 0.3s ease;
+}
+
+@keyframes typing {
+    0% { opacity: 0.5; transform: translateY(5px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.typing-indicator {
+    display: inline-block;
+    animation: typing 1s infinite alternate;
+}
+.typing-status {
+    background: #f0f2f5;
+    padding: 8px 20px;
+    display: none;
+}
+
+.typing-indicator {
+    display: flex;
+    gap: 4px;
+    color: #667781;
+    font-size: 24px;
+    line-height: 0;
+}
+
+.typing-indicator span {
+    animation: typing 1s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.btn-send {
+    transition: all 0.2s ease;
+    transform-origin: center;
+}
+
+.btn-send:hover {
+    animation: pulse 0.5s ease;
+    color: var(--primary-blue) !important;
+}
+
+textarea:focus {
+    box-shadow: 0 0 0 2px var(--dark-blue);
+}
+
+/* Плавная прокрутка */
+.message-container {
+    scroll-behavior: smooth;
+}
+
+/* Эффект при наведении на кнопку назад */
+.chat-back-btn {
+    transition: all 0.2s ease;
+}
+
+.chat-back-btn:hover {
+    transform: translateX(-3px);
+    color: #fff !important;
+}
+
+/* Анимация для времени сообщения */
+.message-time {
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.message-content:hover .message-time {
+    opacity: 1;
+}
+
+
+
+
+
+/* Стилизация полосы прокрутки */
+.message-container::-webkit-scrollbar {
+    width: 8px; /* Ширина вертикального скроллбара */
+    height: 8px; /* Высота горизонтального скроллбара */
+}
+
+.message-container::-webkit-scrollbar-track {
+        background: var(--primary-blue);/* Цвет трека */
+    border-radius: 4px;
+    margin: 5px 0;
+}
+
+.message-container::-webkit-scrollbar-thumb {
+    background: var(--primary-blue); /* Цвет ползунка */
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.message-container::-webkit-scrollbar-thumb:hover {
+    background: #a0a4a7; /* Цвет при наведении */
+}
+
+/* Для Firefox */
+.message-container {
+    scrollbar-width: thin;
+    scrollbar-color: #c5c9cc rgba(240, 242, 245, 0.5);
+}
+
+/* Анимация появления скроллбара */
+.message-container {
+    overflow-y: overlay; /* Только для WebKit */
+}
+
+.message-container::-webkit-scrollbar {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.message-container:hover::-webkit-scrollbar {
+    opacity: 1;
+}
+
+.message-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--primary-blue), var(--dark-blue));
+}
+
+

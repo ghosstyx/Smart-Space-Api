@@ -11,12 +11,14 @@
                             <i class="fa-solid fa-arrow-left"></i>
                         </a>
                         <div class="partner-avatar"></div>
-                        <a href="{% url 'user_profiles:profile' id=p.id %}" class="partner-name">{{ p }}</a>
+                        <a href="#" class="partner-name">{{ p }}</a>
                     {% endif %}
                 {% endfor %}
             </div>
         </header>
-
+        <div class="chat-date-indicator">
+                <span>Сегодня</span>
+        </div>
         <div class="message-container" id="messageContainer">
             {% for msg in messages %}
             <div class="message {% if msg.sender.id == current_user.id %}sent{% else %}received{% endif %}">
@@ -28,10 +30,18 @@
             {% endfor %}
         </div>
 
+        <div class="typing-status" id="typingStatus">
+            <div class="typing-indicator">
+                <span>•</span>
+                <span>•</span>
+                <span>•</span>
+            </div>
+        </div>
+
         <form method="post" action="{% url 'chats:chat_detail' user_id=current_user.id pk=chat.id %}" class="message-form">
             {% csrf_token %}
             <textarea name="text" rows="1" placeholder="Напишите сообщение..." required></textarea>
-            <button type="submit" class="btn-send">
+            <button type="submit" class="btn-send" aria-label="Отправить сообщение">
                 <svg viewBox="0 0 24 24" width="24" height="24">
                     <path fill="currentColor" d="M1.101 21.757L23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"></path>
                 </svg>
