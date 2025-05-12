@@ -22,13 +22,15 @@ class NaturalPerson(models.Model):
     pnf = models.IntegerField(default=12345,blank=True, null=True, verbose_name="ПИНФЛ")
     full_name = models.CharField(max_length=255, blank=True, null=True, verbose_name="ФИО")
     birthday = models.DateField(blank=True, null=True, verbose_name='Дата рождения')
+    email = models.EmailField(max_length=235, verbose_name="Электронная почта")
+    phone = models.CharField(max_length=13, verbose_name="Номер телефона")
     about = models.TextField(max_length=1000, blank=True, null=True, verbose_name="О себе", help_text="Расскажите о себе, своих интересах и опыте")
     branch = models.ForeignKey(Branch, blank=True, null=True, on_delete=models.CASCADE)
     organization = models.ForeignKey(Organization, blank=True, null=True, on_delete=models.CASCADE)
     department = models.ForeignKey(Department, blank=True, null=True, on_delete=models.CASCADE)
     jobTitle = models.ForeignKey(JobTitle, blank=True, null=True, on_delete=models.CASCADE)
     work_hours = models.ForeignKey(WorkHours, blank=True, null=True, on_delete=models.CASCADE)
-    user = models.OneToOneField(User, blank=True, null=True, on_delete=models.CASCADE, related_name='naturalperson', verbose_name="Пользователь")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=False, related_name='naturalperson', verbose_name="Пользователь")
     class Meta:
         verbose_name = "Персона"
         verbose_name_plural = "Люди"

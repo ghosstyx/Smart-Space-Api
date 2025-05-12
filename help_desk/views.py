@@ -7,13 +7,19 @@ from accounts.models import NaturalPerson
 from .models import *
 from .forms import *
 
-# print(Project.objects.get(id=1))
 app_name = 'help_desk'
 class KanbanBoardView(LoginRequiredMixin, FormMixin, DetailView):
     model = Project
     template_name = 'kanban/board.html'
     form_class = TaskForm
     context_object_name = 'project'
+    pk_url_kwarg = 'pk'
+
+    def get_object(self):
+        project = get_object_or_404(Project, id=self.kwargs['pk'])
+        if project.owner.id != self.kwargs['np_id']:
+            raise Http404("Проект не принадлежит пользователю")
+        return project
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -24,7 +30,9 @@ class KanbanBoardView(LoginRequiredMixin, FormMixin, DetailView):
             'done_tasks': Task.objects.filter(project=project, status='done'),
             'users': NaturalPerson.objects.all(),
         })
+
         return context
+
 
     def post(self, request, *args, **kwargs):
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
@@ -57,7 +65,6 @@ class KanbanBoardView(LoginRequiredMixin, FormMixin, DetailView):
                 })
             except Task.DoesNotExist:
                 return JsonResponse({'success': False}, status=404)
-
         elif action == 'create_task':
             form = self.get_form()
             if form.is_valid():
@@ -74,3 +81,23 @@ class KanbanBoardView(LoginRequiredMixin, FormMixin, DetailView):
             return  JsonResponse({'success': False, 'errors': form.errors}, status=400)
 
         return JsonResponse({'success': False}, status=400)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

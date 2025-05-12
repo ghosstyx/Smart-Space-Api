@@ -7,6 +7,9 @@ class Project(models.Model):
      description = models.TextField()
      created_at = models.DateTimeField(auto_now_add=True)
      owner = models.ForeignKey(NaturalPerson, on_delete=models.CASCADE, blank=True, null=True)
+
+     def __str__(self):
+         return self.title
 class Task(models.Model):
     STATUS_CHOICES = [
         ('todo', 'To Do'),

@@ -7,7 +7,7 @@
             <div class="chat-partner">
                 {% for p in chat.participants.all %}
                     {% if p.id != current_user.id %}
-                        <a href="{% url 'chats:chat_list' user_id=current_user.id%}" class="chat-back-btn">
+                        <a href="{% url 'chats:chat_list' np_id=user.naturalperson.id%}" class="chat-back-btn">
                             <i class="fa-solid fa-arrow-left"></i>
                         </a>
                         <div class="partner-avatar"></div>
@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        <form method="post" action="{% url 'chats:chat_detail' user_id=current_user.id pk=chat.id %}" class="message-form">
+        <form method="post" action="{% url 'chats:chat_detail' np_id=user.naturalperson.id pk=chat.id %}" class="message-form">
             {% csrf_token %}
             <textarea name="text" rows="1" placeholder="Напишите сообщение..." required></textarea>
             <button type="submit" class="btn-send" aria-label="Отправить сообщение">
