@@ -16,5 +16,5 @@ urlpatterns = [
     # path('login/', login, name="Login"), ## http://127.0.0.1:8000/auth/login/
 
     path('login/', views.UserLoginView.as_view(), name='login'),
-    path('logout/', views.UserLogoutView.as_view(), name='logout'),
+    path('logout/',  views.UserLogoutView.as_view(), name='logout'),
 ]

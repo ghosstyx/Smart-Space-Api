@@ -9,7 +9,7 @@ User = get_user_model()
 class PhoneNumberAuthBackend(ModelBackend):
     def authenticate(self, request, username=None, secret='', otp='', password=None):
         try:
-            user = User.objects.get(phone_number=username)
+            user = User.objects.get(phone=username)
             if user.is_staff and user.check_password(password):
                 return user
             elif user and verify_otp(secret, otp):

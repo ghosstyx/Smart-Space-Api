@@ -11,7 +11,7 @@ class Chat(models.Model):
         ordering = ['-last_message']
 
     def __str__(self):
-        return f"Чат между: {', '.join([str(p) for p in self.participants.all()])}"
+        return f"Чат между: {', '.join([p.get_full_name() for p in self.participants.all()])}"
 
     def update_last_message(self):
         self.last_message = timezone.now()
@@ -32,4 +32,4 @@ class Message(models.Model):
         self.chat.update_last_message()
 
     def __str__(self):
-        return f"{self.sender} в {self.timestamp.strftime('%H:%M')}: {self.text[:30]}"
+        return f"{self.sender.get_full_name()} в {self.timestamp.strftime('%H:%M')}: {self.text[:30]}"

@@ -8,7 +8,7 @@ from drf_spectacular.views import SpectacularSwaggerView, SpectacularAPIView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', RedirectView.as_view(url='/auth/login', permanent=True)),
+    path('', RedirectView.as_view(url='accounts:login', permanent=True)),
     # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # path('i18n/', include('django.conf.urls.i18n')),
     path('auth/', include('accounts.urls', namespace='accounts')),

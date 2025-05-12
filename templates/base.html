@@ -30,8 +30,8 @@
 
         <!-- Навигация -->
         <div class="nav-item">
-            {% if user.is_authenticated and user.naturalperson %}
-                <a href="{% url 'user_profiles:dashboard' np_id=user.naturalperson.id %}" class="nav-link">
+            {% if user.is_authenticated %}
+                <a href="{% url 'user_profiles:dashboard' pk=user.pk %}" class="nav-link">
             {% else %}
                 <a href="{% url 'accounts:login' %}" class="nav-link" title="Сначала войдите в систему">
             {% endif %}
@@ -40,8 +40,8 @@
                 </a>
         </div>
         <div class="nav-item">
-            {% if user.is_authenticated and user.naturalperson %}
-                <a href="{% url 'user_profiles:profile' np_id=user.naturalperson.id %}" class="nav-link">
+            {% if user.is_authenticated %}
+                <a href="{% url 'user_profiles:profile' pk=user.pk %}" class="nav-link">
             {% else %}
                 <a href="{% url 'accounts:login' %}" class="nav-link" title="Сначала войдите в систему">
             {% endif %}
@@ -56,10 +56,10 @@
             </a>
         </div>
         <div class="nav-item">
-            {% if user.is_authenticated and user.naturalperson %}
-                {% with user.naturalperson.project_set.first as project %}
+            {% if user.is_authenticated  %}
+                {% with user.project_set.first as project %}
                     {% if project %}
-                        <a href="{% url 'help_desk:kanban_board' np_id=user.naturalperson.id pk=project.id %}" class="nav-link">
+                        <a href="{% url 'help_desk:kanban_board' pk=user.pk pk=project.id %}" class="nav-link">
                             <i class="fas fa-fw fa-table"></i>
                             <span>Kanban Board (Project {{ project.id }})</span>
                         </a>
@@ -83,8 +83,8 @@
             </a>
             <div id="components" class="collapse">
                 <div class="collapse-inner">
-                    {% if user.is_authenticated and user.naturalperson %}
-                    <a href="{% url 'chats:chat_list' user_id=user.naturalperson.id %}" class="collapse-item">
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'chats:chat_list' %}" class="collapse-item">
                     {% else %}
                         <a href="#" class="collapse-item disabled">
                     {% endif %}
@@ -134,19 +134,21 @@
                     </svg>
                 </a>
             </div>
-
-            {% if user.is_authenticated and user.naturalperson %}
-                <a href="{% url 'user_profiles:profile' np_id=user.naturalperson.id %}" class="nav-link">
+            {% if user.is_authenticated %}
+                <a href="{% url 'user_profiles:profile' pk=user.pk %}" class="nav-link">
             {% else %}
                 <a href="{% url 'accounts:login' %}" class="nav-link" title="Сначала войдите в систему">
             {% endif %}
                 <div class="sb-profile-name">
-                    {{user.full_name}}
+                    {{user.get_full_name}}
                 </div>
                 <div class="profile-picture-div">
             <img src="https://i.pinimg.com/736x/09/21/fc/0921fc87aa989330b8d403014bf4f340.jpg" alt="Фото сотрудника" width="25px" height="25px" class="profile-picture pulse">
                 </div>
             </a>
+                    <a href="{% url 'accounts:logout' %}" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
         </div>
         </div>
     </div>

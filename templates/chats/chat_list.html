@@ -9,7 +9,7 @@
 
         <div class="chat-list">
             {% for chat in chats %}
-            <a href="{% url 'chats:chat_detail' np_id=user.naturalperson.id pk=chat.id %}"
+            <a href="{% url 'chats:chat_detail' pk=chat.id %}"
                class="chat-item {% if chat.id == active_chat_id %}active{% endif %}">
                 <div class="chat-avatar">
                     {% for p in chat.participants.all %}
@@ -51,7 +51,7 @@
     <main class="chat-main">
         <div class="new-chat-section">
             <h3>Новый чат</h3>
-            <form method="post" action="{% url 'chats:chat_create' user_id=user.naturalperson.id %}" class="new-chat-form">
+            <form method="post" action="{% url 'chats:chat_create' %}" class="new-chat-form">
                 {% csrf_token %}
                 <select name="other" required class="user-select">
                     <option value="" disabled selected>Выберите сотрудника</option>

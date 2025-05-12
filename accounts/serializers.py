@@ -30,7 +30,7 @@ class LoginSerializer(PhoneNumberSerializer):
     otp = serializers.CharField()
 
     def validate(self, validated_data):
-        phone_number = validated_data.get('phone_number', '')
+        phone_number = validated_data.get('phone', '')
         email = validated_data.get('email', '')
         secret = validated_data.get('secret')
         otp = validated_data.get('otp')

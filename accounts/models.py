@@ -1,51 +1,44 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
-from accounts.managers import UserManager
+from accounts.managers import NaturalPersonManager
 from organizations.models import *
 
-class User(AbstractUser):
-    email = models.EmailField(unique=True, null=True, verbose_name='Электронная почта')
-    phone_number = PhoneNumberField(unique=True, verbose_name='Номер телефона')
-    middle_name = models.CharField(max_length=200, blank=True, null=True, verbose_name='Отчество')
-    birthday = models.DateField(null=True, blank=True)
-    # USERNAME_FIELD = 'phone_number'
-    # REQUIRED_FIELDS = []
-    #
-    # objects = UserManager()
+class NaturalPerson(AbstractUser):
+    username = None
+    pnf = models.IntegerField(default=12345, blank=True, null=True, verbose_name="ПИНФЛ")
+    phone = models.CharField(max_length=13, unique=True, verbose_name="Номер телефона")  # Переименовано для единообразия
+    about = models.TextField(max_length=1000, blank=True, null=True, verbose_name="О себе")
 
-    class Meta:
-        verbose_name = 'Пользователь'
-        verbose_name_plural = 'Пользователи'
+    # Организационные поля
+    branch = models.ForeignKey(Branch, blank=True, null=True, on_delete=models.SET_NULL)
+    organization = models.ForeignKey(Organization, blank=True, null=True, on_delete=models.SET_NULL)
+    department = models.ForeignKey(Department, blank=True, null=True, on_delete=models.SET_NULL)
+    jobTitle = models.ForeignKey(JobTitle, blank=True, null=True, on_delete=models.SET_NULL)
+    work_hours = models.ForeignKey(WorkHours, blank=True, null=True, on_delete=models.SET_NULL)
 
-class NaturalPerson(models.Model):
-    pnf = models.IntegerField(default=12345,blank=True, null=True, verbose_name="ПИНФЛ")
-    full_name = models.CharField(max_length=255, blank=True, null=True, verbose_name="ФИО")
-    birthday = models.DateField(blank=True, null=True, verbose_name='Дата рождения')
-    email = models.EmailField(max_length=235, verbose_name="Электронная почта")
-    phone = models.CharField(max_length=13, verbose_name="Номер телефона")
-    about = models.TextField(max_length=1000, blank=True, null=True, verbose_name="О себе", help_text="Расскажите о себе, своих интересах и опыте")
-    branch = models.ForeignKey(Branch, blank=True, null=True, on_delete=models.CASCADE)
-    organization = models.ForeignKey(Organization, blank=True, null=True, on_delete=models.CASCADE)
-    department = models.ForeignKey(Department, blank=True, null=True, on_delete=models.CASCADE)
-    jobTitle = models.ForeignKey(JobTitle, blank=True, null=True, on_delete=models.CASCADE)
-    work_hours = models.ForeignKey(WorkHours, blank=True, null=True, on_delete=models.CASCADE)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=False, related_name='naturalperson', verbose_name="Пользователь")
+    USERNAME_FIELD = 'phone'
+    REQUIRED_FIELDS = []
+
+    objects = NaturalPersonManager()
+
     class Meta:
         verbose_name = "Персона"
         verbose_name_plural = "Люди"
+
     def __str__(self):
-        return f"{self.full_name}"
+        return f"{self.get_full_name() or self.email}"
+
     def get_active_chats(self):
         return self.chats.all()
 
     def get_absolute_url(self):
-        return reverse('user_profiles:profile', kwargs={'np_id': self.id})
+        return reverse('user_profiles:profile', kwargs={'pk': self.id})
 
 
 class LogSms(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создано')
-    phone_number = models.CharField(max_length=255, null=True, blank=True, verbose_name='Номер телефона')
+    phone = models.CharField(max_length=255, null=True, blank=True, verbose_name='Номер телефона')
     message = models.CharField(max_length=255, null=True, blank=True, verbose_name='Сообщение')
     resp = models.CharField(max_length=800, null=True, blank=True, verbose_name='Ответ')
 

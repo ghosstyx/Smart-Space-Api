@@ -8,8 +8,8 @@
         </div>
 
         <div class="card-body">
-            <a href="{% url 'user_profiles:profile' np_id=employee.id %}" class="profile-link">
-                {{ employee.full_name }}
+            <a href="{% url 'user_profiles:profile' pk=user.pk %}" class="profile-link">
+                {{ employee.get_full_name }}
             </a>
             <p class="position">{{ employee.jobTitle }}</p>
             <p class="department">{{ employee.department}}</p>
@@ -18,7 +18,7 @@
             <div class="card-contacts">
                 <a href="#" title="Написать"><i class="fas fa-envelope"></i></a>
                 <a href="#" title="Позвонить"><i class="fas fa-phone"></i></a>
-                <a href="{% url 'user_profiles:profile' np_id=employee.id %}" title="Профиль">
+                <a href="{% url 'user_profiles:profile' pk=user.pk %}" title="Профиль">
                     <i class="fas fa-user-circle"></i>
                 </a>
             </div>

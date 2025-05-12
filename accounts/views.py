@@ -102,14 +102,18 @@ class SendOTPAPIView(GenericAPIView):
 
 from django.contrib.auth.views import LoginView, LogoutView
 from rest_framework.reverse import reverse_lazy
+from django.contrib import messages
 
 
 class UserLoginView(LoginView):
     template_name = 'login.html'
 
     def get_success_url(self):
-        user = self.request.user
-        return reverse_lazy('user_profiles:profile', kwargs={'np_id': self.request.user.naturalperson.id})
+        return reverse_lazy('user_profiles:profile', kwargs={'pk': self.request.user.id})
 
 class UserLogoutView(LogoutView):
-    next_page = reverse_lazy('user_profiles.views.view_404')
+    next_page = reverse_lazy('accounts:login')
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        messages.success(request, 'Вы успешно вышли из системы')
+        return response
