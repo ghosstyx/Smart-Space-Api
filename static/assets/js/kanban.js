@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 100);
     }
 
-    // Обработчик отправки формы
     taskForm.addEventListener('submit', function(e) {
         e.preventDefault();
         const formData = new FormData(this);
@@ -39,7 +38,8 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             if (data.success) {
                 modal.style.display = 'none';
-                document.getElementById('todo-tasks').insertAdjacentHTML('afterbegin', data.task_html);
+                const columnId = `${data.task_status}-tasks`;
+                document.getElementById(columnId).insertAdjacentHTML('afterbegin', data.task_html);
                 updateTaskCounts();
                 taskForm.reset();
             } else {
@@ -181,6 +181,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 300);
     }
 
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.id === 'edit-project-btn') {
+            e.preventDefault();
+            document.getElementById('project-edit-modal').style.display = 'block';
+        }
+    });
     // Вспомогательная функция для определения позиции
     function getDragAfterElement(container, y) {
         const draggableElements = [...container.querySelectorAll('.task-card:not(.dragging)')];
@@ -215,6 +221,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Failed to update task status');
             }
         })
+        .then(data => {
+            if (data.success) {
+                updateTaskCounts();  // Обновить счетчики
+            }
+        })
         .catch(error => {
             console.error('Error:', error);
         });
@@ -243,4 +254,54 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         return cookieValue;
     }
+
+        // Открытие модального окна
+    document.getElementById('edit-project-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('project-edit-modal').style.display = 'block';
+    });
+
+    // Закрытие модального окна
+    document.querySelectorAll('.close-modal').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.getElementById('project-edit-modal').style.display = 'none';
+        });
+    });
+    document.getElementById('project-edit-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    formData.append('action', 'update_project');
+
+    fetch(this.action, {
+        method: 'POST',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: formData
+    })
+    .then(response =>
+        response.text().then(text => {
+            try {
+                return JSON.parse(text);
+            } catch {
+                throw new Error("Server returned HTML instead of JSON");
+            }
+        })
+    )
+    .then(data => {
+        if (data.success) {
+            showToast('Проект обновлён!');
+            document.getElementById('project-edit-modal').style.display = 'none';
+        } else {
+            console.error('Ошибка:', data.errors);
+            showToast('Ошибка: ' + JSON.stringify(data.errors), true);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('Ошибка сервера', true);
+    });
+});
 });

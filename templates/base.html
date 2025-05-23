@@ -3,8 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>Eman Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -55,22 +54,47 @@
                 <span>Employees</span>
             </a>
         </div>
+
         <div class="nav-item">
-            {% if user.is_authenticated  %}
-                {% with user.project_set.first as project %}
-                    {% if project %}
-                        <a href="{% url 'help_desk:kanban_board' pk=user.pk pk=project.id %}" class="nav-link">
-                            <i class="fas fa-fw fa-table"></i>
-                            <span>Kanban Board (Project {{ project.id }})</span>
-                        </a>
-                    {% else %}
-                        <a href="#" class="nav-link disabled">Нет доступных проектов</a>
+            <a href="#utilities" class="nav-link" data-toggle="collapse">
+                <i class="fas fa-fw fa-table"></i>
+                <span style="">Boards</span>
+                <i class="fas fa-fw fa-angle-down collapse-arrow"></i>
+            </a>
+            <div id="utilities" class="collapse">
+                <div class="collapse-inner">
+                {% if user.is_authenticated %}
+                    {% with user.owned_projects.all as owned_projects %}
+                        {% if owned_projects %}
+                            {% for project in owned_projects %}
+                                <a href="{% url 'help_desk:kanban_board' np_id=user.id pk=project.id %}" class="nav-link">
+                                    <i class="fas fa-fw fa-table"></i>
+                                    <span>Мой проект: {{ project.title|truncatechars:20 }}</span>
+                                </a>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+                    {% if user.department %}
+                        {% with user.department.projects.all as dept_projects %}
+                            {% if dept_projects %}
+                                {% for project in dept_projects %}
+                                    <a href="{% url 'help_desk:kanban_board' np_id=user.id pk=project.id %}" class="nav-link">
+                                        <i class="fas fa-fw fa-table"></i>
+                                        <span>Доска отдела: {{ project.department.name }}</span>
+                                    </a>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
                     {% endif %}
-                {% endwith %}
-            {% else %}
-                <a href="#" class="nav-link disabled">Войдите для доступа</a>
-            {% endif %}
+                {% endif %}
+                </div>
+            </div>
         </div>
+
+
+
+
 
         <!-- Раскрывающийся пункт -->
         <div class="nav-item">
@@ -95,25 +119,6 @@
             </div>
         </div>
 
-<!--        &lt;!&ndash; Раскрывающийся пункт &ndash;&gt;-->
-<!--        <div class="nav-item">-->
-<!--            <a href="#utilities" class="nav-link" data-toggle="collapse">-->
-<!--                <i class="fas fa-fw fa-wrench"></i>-->
-<!--                <span>Utilities</span>-->
-<!--                <i class="fas fa-fw fa-angle-down collapse-arrow"></i>-->
-<!--            </a>-->
-<!--            <div id="utilities" class="collapse">-->
-<!--                <div class="collapse-inner">-->
-<!--                    <a href="#" class="collapse-item">Colors</a>-->
-<!--                    <a href="#" class="collapse-item">Borders</a>-->
-<!--                    <a href="#" class="collapse-item">Animations</a>-->
-<!--                    <a href="#" class="collapse-item">Other</a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; Заголовок группы &ndash;&gt;-->
-<!--        <div class="sidebar-heading">Addons</div>-->
     </div>
     <div class="topbar">
         <div class="tb-display">
@@ -146,9 +151,12 @@
             <img src="https://i.pinimg.com/736x/09/21/fc/0921fc87aa989330b8d403014bf4f340.jpg" alt="Фото сотрудника" width="25px" height="25px" class="profile-picture pulse">
                 </div>
             </a>
-                    <a href="{% url 'accounts:logout' %}" class="logout-btn">
+                    <a href="{% url 'accounts:logout' %}" class="logout-btn" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
+                    <form id="logout-form" action="{% url 'accounts:logout' %}" method="POST" style="display: none;">
+                        {% csrf_token %}
+                    </form>
         </div>
         </div>
     </div>

@@ -5,8 +5,8 @@ from .models import Project, Task
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('title', 'owner', 'id')
-
+    list_display = ('title', 'project_type', 'department')
+    list_filter = ('project_type', 'department')
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
     list_display = ('title', 'assignee')

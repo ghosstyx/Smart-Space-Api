@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block main %}
+<div class="project-form-container">
+    <span class="close-modal">&times;</span>
+    <h1>{% if object %}Edit Project{% else %}Create New Project{% endif %}</h1>
+    <form id="project-edit-form" method="post" action="{% url 'help_desk:project_update' pk=project.id %}">
+            {% csrf_token %}
+            <div class="form-fields">
+                {{ project_form.title|as_crispy_field }}
+                {{ project_form.description|as_crispy_field }}
+                {{ project_form.project_type|as_crispy_field }}
+                {{ project_form.department|as_crispy_field }}
+            </div>
+            <button type="submit" class="btn-save">Save</button>
+        </form>
+</div>
+
+<script>
+function toggleDepartmentField() {
+    const projectType = document.getElementById('project-type-select').value;
+    const departmentSelect = document.getElementById('department-select');
+    
+    if (projectType === 'department') {
+        departmentSelect.disabled = false;
+        departmentSelect.required = true;
+    } else {
+        departmentSelect.disabled = true;
+        departmentSelect.required = false;
+    }
+}
+</script>
+{% endblock %}

@@ -115,5 +115,5 @@ class UserLogoutView(LogoutView):
     next_page = reverse_lazy('accounts:login')
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)
-        messages.success(request, 'Вы успешно вышли из системы')
+        # messages.success(request, 'Вы успешно вышли из системы')
         return response

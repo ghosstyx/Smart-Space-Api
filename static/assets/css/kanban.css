@@ -23,6 +23,7 @@
     background-color: var(--primary-blue);
     color: white;
     font-size: 17px;
+    text-decoration: none;
 }
 
 .kanban-header {
@@ -200,10 +201,24 @@
     background-color: rgba(0,0,0,0.5);
     animation: fadeIn 0.3s;
 }
+.icon-box{
+        width: 40px;
+        height: 40px;
+        margin: 10px auto 20px auto;
+        border-radius: 50%;
+        z-index: 9;
+        text-align: center;
+        border: 3px solid #f15e5e;
+        color: #d43f3a;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+}
 
 .modal-content {
     background-color: #fefefe;
-    margin: 5% auto;
+    margin: 2% auto;
     padding: 25px;
     border-radius: 8px;
     width: 50%;
@@ -236,6 +251,28 @@
     border: 1px solid #ddd;
     border-radius: 4px;
 }
+.form-fields {
+    margin-bottom: 20px;
+}
+
+.form-select, .form-input, .form-date {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Универсальные стили для всех модалок */
+.modal-content h2 {
+    margin-bottom: 20px;
+    color: var(--dark-blue);
+}
+
+#project-edit-form .form-fields {
+    margin-bottom: 25px;
+}
+
 
 #task-form textarea {
     min-height: 80px;
@@ -274,11 +311,17 @@
     margin-top: 20px;
 }
 
+.kanban-btns{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .btn-danger {
     border-radius: 20px;
     border: none;
     padding: 5px 10px;
-    background: #fa5042;
+    background: #d63b2d;
     color: white;
     font-size: 16px;
 }
@@ -357,4 +400,45 @@
 .task-card.dragging {
     opacity: 0.5;
     transform: scale(0.95);
+}
+
+/* Toast notifications */
+.toast-notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 24px;
+    background: #4CAF50;
+    color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.toast-notification.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast-notification.error {
+    background: #f44336;
+}
+
+/* Drag and drop */
+.task-card.dragging {
+    opacity: 0.5;
+}
+
+.tasks-list.drag-over {
+    background: rgba(0,0,0,0.05);
+    border: 2px dashed #2196F3;
+}
+
+.task-card.deleting {
+    transform: scale(0.9);
+    opacity: 0;
+    transition: all 0.3s ease;
 }

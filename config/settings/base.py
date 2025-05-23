@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'mptt',
     'django_mptt_admin',
+    'crispy_forms',
+    'crispy_bootstrap5',
 
     # Local apps
     'accounts',
@@ -61,7 +63,8 @@ MIDDLEWARE = [
     # 'allauth.account.middleware.AccountMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+     'accounts.middleware.AdminAccessMiddleware',
+     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -86,6 +89,8 @@ TEMPLATES = [
     },
 ]
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
@@ -118,7 +123,7 @@ LANGUAGES = (
 
 # Настройки аутентификации
 LOGIN_URL = 'accounts:login'
-LOGOUT_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = 'accounts:login'
 
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
 LOCALE_PATHS = (

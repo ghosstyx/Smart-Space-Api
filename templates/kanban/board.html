@@ -1,11 +1,23 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block main %}
+<div id="loader" style="display: none;">Loading...</div>
 <div class="kanban-container">
     <div class="kanban-header">
         <h1 class="dashboard">{{ project.title }}</h1>
         <p class="project-description">{{ project.description }}</p>
+        {% if project.project_type == 'department' %}
+        <span class="badge department-badge">{{ project.department.name }}</span>
+        {% endif %}
+        <div class="kanban-btns">
+        {% if can_edit %}
         <button id="new-task-btn" class="btn-primary">+ New Task</button>
+        {%if can_edit_project %}
+        <a href="{% url 'help_desk:project_update' pk=project.id %}" id="edit-project-btn" class="btn-primary">Edit Project</a>
+        {% endif %}
+        {% endif %}
+        </div>
     </div>
 
     <div class="kanban-board">
@@ -47,6 +59,20 @@
                 {% endfor %}
             </div>
         </div>
+
+        {% for column in project.columns.all %}
+        <div class="kanban-column">
+            <div class="column-header">
+                <h2>{{ column.title }}</h2>
+                <span class="task-count">{{ column.tasks.count }}</span>
+            </div>
+            <div class="tasks-list" data-column-id="{{ column.id }}">
+                {% for task in column.tasks.all %}
+                    {% include 'kanban/partials/task_card.html' %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
     </div>
 </div>
 
@@ -57,16 +83,39 @@
         <h2 id="modal-title">New Task</h2>
         <form id="task-form" method="post">
             {% csrf_token %}
-            {{ form.as_p }}
+            <div class="form-fields">
+                {{ form.title|as_crispy_field }}
+                {{ form.description|as_crispy_field }}
+                {{ form.status|as_crispy_field }}
+                {{ form.assignee|as_crispy_field }}
+                {{ form.due_date|as_crispy_field }}
+            </div>
             <button type="submit" class="btn-save">Save Task</button>
         </form>
     </div>
 </div>
-
+<div id="project-edit-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>Edit Project</h2>
+        <form id="project-edit-form" method="post" action="{% url 'help_desk:project_update' pk=project.id %}">
+            {% csrf_token %}
+            <div class="form-fields">
+                {{ project_form.title|as_crispy_field }}
+                {{ project_form.description|as_crispy_field }}
+                {{ project_form.project_type|as_crispy_field }}
+                {{ project_form.department|as_crispy_field }}
+            </div>
+            <button type="submit" class="btn-save">Save</button>
+        </form>
+    </div>
+</div>
 <!-- Delete Notification -->
 <div id="confirm-delete-modal" class="modal">
     <div class="modal-content confirm-modal">
-        <h3>Подтвердите удаление</h3>
+        <div class="icon-box">
+            <i class="fa-solid fa-x"></i>
+        </div>
         <p>Вы уверены, что хотите удалить эту задачу?</p>
         <div class="confirm-buttons">
             <button id="confirm-delete-btn" class="btn-danger">Удалить</button>

@@ -9,7 +9,7 @@ class ProfileForm(forms.ModelForm):
         widgets = {
             'about': forms.Textarea(attrs={
                 'class': 'form-control',
-                'rows': 5,
-                'placeholder': 'Расскажите о себе...'
+                'rows': 2,
+                'placeholder': 'Нажмите сюда...'
             })
         }

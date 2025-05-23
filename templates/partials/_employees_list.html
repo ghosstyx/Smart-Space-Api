@@ -8,17 +8,17 @@
         </div>
 
         <div class="card-body">
-            <a href="{% url 'user_profiles:profile' pk=user.pk %}" class="profile-link">
-                {{ employee.get_full_name }}
+            <a href="{% url 'user_profiles:profile' pk=employee.id %}" class="profile-link">
+                {{ employee.first_name }} {{ employee.last_name }}
             </a>
-            <p class="position">{{ employee.jobTitle }}</p>
-            <p class="department">{{ employee.department}}</p>
-            <p class="department">{{ employee.organization}}</p>
+            <p class="position">{% if employee.jobTitle %}{{ employee.jobTitle.jobTitle}}{% else %} Не указано {% endif %}</p>
+            <p class="department">{% if employee.department %}{{ employee.department.deptName}}{% else %} Не указано {% endif %}</p>
+            <p class="department">{% if employee.organization %}{{ employee.organization}}{% else %} Не указано {% endif %}</p>
 
             <div class="card-contacts">
                 <a href="#" title="Написать"><i class="fas fa-envelope"></i></a>
                 <a href="#" title="Позвонить"><i class="fas fa-phone"></i></a>
-                <a href="{% url 'user_profiles:profile' pk=user.pk %}" title="Профиль">
+                <a href="{% url 'user_profiles:profile' pk=employee.id %}" title="Профиль">
                     <i class="fas fa-user-circle"></i>
                 </a>
             </div>
